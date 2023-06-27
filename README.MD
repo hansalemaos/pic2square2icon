@@ -64,13 +64,13 @@ resized_image.save(rf"C:\testim\{test}.png")
 
 
 
-#### g.png
+#### bg.png
 
 ![](https://github.com/hansalemaos/screenshots/blob/main/create_ico/bg.png?raw=true)
 
 
 
-#### g.png
+#### fg.png
 
 ![](https://github.com/hansalemaos/screenshots/blob/main/create_ico/fg.png?raw=true)
 
