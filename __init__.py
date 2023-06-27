@@ -5,7 +5,9 @@ from ignoreexceptions import ignore_Exception
 from typing import Any
 
 
-def resize_with_background(image, target_size: int = 512, background=None) -> Image:
+def resize_with_background(
+    image, target_size: int = 512, background=None, background_ratio: int = 1
+) -> Image:
     """
     Resize an image to the specified target size with a background.
 
@@ -13,6 +15,7 @@ def resize_with_background(image, target_size: int = 512, background=None) -> Im
         image (Image, np.array or str (file path)): The input image.
         target_size (int, optional): The target size for the resized image. Defaults to 512.
         background (None, Image, np.array, str (file path/hex color/color name), RGB tuple, optional): The background. Defaults to None (image is also used as background).
+        background_ratio (int): Zoom on background pic
 
     Returns:
         Image: The resized image with the background.
@@ -28,7 +31,9 @@ def resize_with_background(image, target_size: int = 512, background=None) -> Im
     background_image = create_new_image_with_color(target_size, background)
     if not background_image:
         background_image = resize_image_at_least_size(background, target_size)
-        background_image = crop_image(background_image, (target_size, target_size))
+        background_image = crop_image(
+            background_image, (target_size, target_size), background_ratio
+        )
     x = (target_size - width) // 2
     y = (target_size - height) // 2
     background_image.paste(resized_image, (x, y))
@@ -112,24 +117,28 @@ def create_new_image_with_color(target_size, background_color) -> Image:
     return Image.new("RGB", (target_size, target_size), background_color)
 
 
-def crop_image(image, crop_size: tuple | list) -> Image:
+def crop_image(image, crop_size: tuple | list, background_ratio: int = 1) -> Image:
     """
     Crop an image to the specified size.
 
     Args:
         image (Image, np.array or str (file path)): The input image.
         crop_size (tuple or list): The size of the cropped image.
+        background_ratio (int): Zoom on background pic
 
     Returns:
         Image: The cropped image.
     """
     image = image2rgb(image)
-    width, height = image.size
+    imagex = image.resize(
+        (image.size[0] * background_ratio, image.size[1] * background_ratio)
+    )
+    width, height = imagex.size
     x1 = (width - crop_size[0]) // 2
     y1 = (height - crop_size[1]) // 2
     x2 = x1 + crop_size[0]
     y2 = y1 + crop_size[1]
-    cropped_image = image.crop((x1, y1, x2, y2))
+    cropped_image = imagex.crop((x1, y1, x2, y2))
     return cropped_image
 
 

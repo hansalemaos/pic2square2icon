@@ -29,37 +29,46 @@ from pic2square2icon import resize_with_background, pic2ico
 import cv2
 
 test = 1
-fg = r"C:\testim\fg.png"
-bg = r"C:\testim\bg.png"
+fg = r"C:\test\fg.png"
+bg = r"C:\test\bg.png"
 target_size = 512
 resized_image = resize_with_background(fg, target_size, bg)
-pic2ico(src=resized_image, dst=rf"C:\testim\{test}.ico")
-resized_image.save(rf"C:\testim\{test}.png")
+pic2ico(src=resized_image, dst=rf"C:\test\{test}.ico")
+resized_image.save(rf"C:\test\{test}.png")
 
 
 test = 2
-fg = r"C:\testim\fg.png"
+fg = r"C:\test\fg.png"
 bg = "orange"
 target_size = 512
 resized_image = resize_with_background(fg, target_size, bg)
-pic2ico(src=resized_image, dst=rf"C:\testim\{test}.ico")
-resized_image.save(rf"C:\testim\{test}.png")
+pic2ico(src=resized_image, dst=rf"C:\test\{test}.ico")
+resized_image.save(rf"C:\test\{test}.png")
 
 test = 3
-fg = r"C:\testim\fg.png"
+fg = r"C:\test\fg.png"
 bg = (255, 255, 0)
 target_size = 512
 resized_image = resize_with_background(fg, target_size, bg)
-pic2ico(src=resized_image, dst=rf"C:\testim\{test}.ico")
-resized_image.save(rf"C:\testim\{test}.png")
+pic2ico(src=resized_image, dst=rf"C:\test\{test}.ico")
+resized_image.save(rf"C:\test\{test}.png")
 
 test = 4
-fg = r"C:\testim\bg.png"
-bg = cv2.imread(r"C:\testim\fg.png")
+fg = r"C:\test\bg.png"
+bg = cv2.imread(r"C:\test\fg.png")
 target_size = 512
-resized_image = resize_with_background(fg, target_size, bg)
-pic2ico(src=resized_image, dst=rf"C:\testim\{test}.ico")
-resized_image.save(rf"C:\testim\{test}.png")
+resized_image = resize_with_background(fg, target_size, bg, background_ratio=2)
+pic2ico(src=resized_image, dst=rf"C:\test\{test}.ico")
+resized_image.save(rf"C:\test\{test}.png")
+
+test = 5
+fg = r"C:\test\fg.png"
+bg = None
+target_size = 512
+resized_image = resize_with_background(fg, target_size, bg, background_ratio=2)
+resized_image.save(rf"C:\test\{test}.png")
+pic2ico(src=resized_image, dst=rf"C:\test\{test}.ico")
+
 ```
 
 
@@ -97,3 +106,8 @@ resized_image.save(rf"C:\testim\{test}.png")
 #### 4.png
 
 ![](https://github.com/hansalemaos/screenshots/blob/main/create_ico/4.png?raw=true)
+
+
+#### 5.png
+
+![](https://github.com/hansalemaos/screenshots/blob/main/create_ico/5.png?raw=true)
